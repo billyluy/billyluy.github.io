@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Yay! 💖</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #ffd1dc;
+            font-family: 'Comic Sans MS', cursive;
+            overflow: hidden;
+        }
+        .container {
+            text-align: center;
+            animation: bounce 1s infinite;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        .message {
+            font-size: 32px;
+            color: #ff4d4d;
+            margin: 20px;
+        }
+        .gif {
+            margin: 20px;
+            max-width: 450px;
+            border-radius: 10px;
+        }
+        .hearts {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        .subtext {
+            font-size: 18px;
+            color: #ff6b88;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="hearts" id="hearts"></div>
+    <div class="container">
+        <div class="message">Yay! Thanks for being my Valentine! 💖</div>
+        <div class="subtext">I can't wait to spend the weekend with you!</div>
+        <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExeGRteTdra2N3cWYxa3A0M3h1cDBlZ3F4cGlnOTN0b2xmNzAxcjR5ayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/cHkrXQvSSY5La/giphy.gif" alt="Happy Heart" class="gif">
+    </div>
+
+    <script>
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.innerHTML = '💖';
+            heart.style.position = 'fixed';
+            heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.top = '-20px';
+            heart.style.opacity = '1';
+            heart.style.transition = 'all ' + (Math.random() * 2 + 3) + 's linear';
+            document.getElementById('hearts').appendChild(heart);
+
+            setTimeout(() => {
+                heart.style.top = '100vh';
+                heart.style.opacity = '0';
+            }, 100);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+
+        setInterval(createHeart, 300);
+    </script>
+</body>
+</html>

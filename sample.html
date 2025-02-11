@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Be My Valentine?</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #ffd1dc;
+            font-family: 'Comic Sans MS', cursive;
+        }
+        .container {
+            text-align: center;
+        }
+        .gif {
+            margin: 20px;
+            max-width: 375px;
+        }
+        .question {
+            font-size: 32px;
+            color: #ff4d4d;
+            margin: 20px;
+        }
+        .buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+        .buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+        .btn {
+            padding: 10px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        #yesBtn {
+            background-color: #ff9999;
+            color: white;
+        }
+        #yesBtn:hover {
+            background-color: #ff6666;
+            transform: scale(1.1);
+        }
+        #noBtn {
+            background-color: #b3b3b3;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="question">Hey Ashley, I'd love to spend Valentine's Day with you!</div>
+        <div class="question">Will you be my Valentine? 🌹💝</div>
+        <img src="https://64.media.tumblr.com/95d3feb8a70a7bfe4696382d51b7e3ea/141b023d83120945-d3/s540x810/eacd0a3da21e17feae6a1edc4b3d9cc5d45ab08a.gifv" alt="Valentine's Heart" class="gif">
+        <div class="buttons">
+            <button class="btn" id="yesBtn" onclick="location.href='yes.html'">Yes! 🥰</button>
+            <button class="btn" id="noBtn" onclick="moveButton()">No 😢</button>
+        </div>
+    </div>
+
+    <script>
+        let noClickCount = 0;
+
+        function moveButton() {
+            noClickCount++;
+            if (noClickCount >= 5) {
+                location.href = 'no.html';
+                return;
+            }
+
+            const noBtn = document.getElementById('noBtn');
+            const btnWidth = noBtn.offsetWidth;
+            const btnHeight = noBtn.offsetHeight;
+            const screenWidth = window.innerWidth;
+            const screenHeight = window.innerHeight;
+            
+            // Define the center zone to avoid (approximately where the GIF is)
+            const centerZoneX = screenWidth * 0.3; // 30% from left
+            const centerZoneWidth = screenWidth * 0.4; // 40% of screen width
+            const centerZoneY = screenHeight * 0.2; // 20% from top
+            const centerZoneHeight = screenHeight * 0.6; // 60% of screen height
+            
+            // Add position absolute when moving
+            noBtn.style.position = 'absolute';
+            
+            // Generate random position
+            let newX, newY;
+            
+            // Randomly choose left or right side
+            if (Math.random() < 0.5) {
+                // Left side
+                newX = Math.random() * (centerZoneX - btnWidth);
+            } else {
+                // Right side
+                newX = (centerZoneX + centerZoneWidth) + Math.random() * (screenWidth - (centerZoneX + centerZoneWidth) - btnWidth);
+            }
+            
+            // Randomly choose top or bottom if in center horizontal zone
+            if (newX > centerZoneX && newX < (centerZoneX + centerZoneWidth)) {
+                if (Math.random() < 0.5) {
+                    // Top
+                    newY = Math.random() * (centerZoneY - btnHeight);
+                } else {
+                    // Bottom
+                    newY = (centerZoneY + centerZoneHeight) + Math.random() * (screenHeight - (centerZoneY + centerZoneHeight) - btnHeight);
+                }
+            } else {
+                // Full height range if on sides
+                newY = Math.random() * (screenHeight - btnHeight);
+            }
+            
+            noBtn.style.left = newX + 'px';
+            noBtn.style.top = newY + 'px';
+        }
+    </script>
+</body>
+</html>
